@@ -72,9 +72,6 @@ class OnlineVariance_2(object):
     self.om.add(((x - m)**2))
     self.variance = self.om.mean
 
-
-
-
 #compute covariance of inital lists and update with new elements
 class OnlineCovariance(object):
 
