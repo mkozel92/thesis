@@ -6,12 +6,12 @@ class dataSource(object):
   def __init__(self,source):
     pass
 
-  #this utterly useless thing might get useful with more data types and sources
-  # '/home/michal/Downloads/ydata-labeled-time-series-anomalies-v1_0/A1Benchmark/real_3.csv'
-  def get_data(self,location):
+  @staticmethod
+  def get_data(location):
     return pd.read_csv(location,index_col='timestamp')
 
-  def generate_lin_data(self, x, x_var, count, slope, anomaly_probability):
+  @staticmethod
+  def generate_lin_data(x, x_var, count, slope, anomaly_probability):
     x_std = np.sqrt(x_var)
     xs = []
     orig = x
@@ -22,7 +22,8 @@ class dataSource(object):
       xs.append(x)
     return np.array(xs)
 
-  def generate_sin_data(self, x_height, x_range, x_period, x_var, count, anomaly_probability):
+  @staticmethod
+  def generate_sin_data(x_height, x_range, x_period, x_var, count, anomaly_probability):
     x_std = np.sqrt(x_var)
     xs = []
     for i in range(count):

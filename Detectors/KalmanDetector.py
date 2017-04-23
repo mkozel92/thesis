@@ -18,19 +18,21 @@ class KalmanDetector(object):
   def handle_record(self, inputData):
     self.kf.predict()
     prediction = self.kf.x[0]
-    anomaly_score = abs(prediction - inputData["value"])/np.sqrt(self.variance.variance)
+    anomaly_score = abs(prediction - inputData["value"])/\
+                    np.sqrt(self.variance.variance)
+                    # np.sqrt(self.kf.P[0][0])
     self.variance.add(inputData["value"], self.kf.x[0])
     self.kf.update(inputData["value"])
 
     #adapt filter
     y, S = self.kf.y, self.kf.S
     eps = dot3(y.T, inv(self.kf.S), y)
-    
+
     if eps > self.eps_max:
         self.kf.Q *= self.Q_scale_factor
         self.count += 1
     elif self.count > 0:
         self.kf.Q /= self.Q_scale_factor
         self.count -= 1
-    
+
     return {"anomaly_score" :anomaly_score, "prediction" :prediction, "real": inputData["value"]}
