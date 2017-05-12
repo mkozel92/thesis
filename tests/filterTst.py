@@ -33,7 +33,7 @@ def linear_tst_2():
   run(d,kd)
 
 def nab_tst():
-  d = dsource.get_data('data/artificialWithAnomaly/art_daily_flatmiddle.csv')
+  d = dsource.get_data('../data/artificialWithAnomaly/art_daily_flatmiddle.csv')
   # d = dsource.get_data('data/artificialWithAnomaly/art_daily_jumpsdown.csv')
   # d = dsource.get_data('data/artificialWithAnomaly/art_increase_spike_density.csv')
   # d = dsource.get_data('data/realTweets/Twitter_volume_GOOG.csv')

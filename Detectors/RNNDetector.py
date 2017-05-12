@@ -16,10 +16,10 @@ class RNNDetector(object):
   @staticmethod
   def build_model(trainX, trainY, look_back):
     model = Sequential()
-    model.add(LSTM(4, input_shape=(1, look_back)))
+    model.add(LSTM(50, input_shape=(1, look_back), stateful=True, batch_size=1))
     model.add(Dense(1))
     model.compile(loss='mean_squared_error', optimizer='adam')
-    model.fit(trainX, trainY, epochs=10, batch_size=1, verbose=2)
+    model.fit(trainX, trainY, epochs=1000, batch_size=1, verbose=2, shuffle=False)
     return model
 
   def prepare_data(self, dataset, look_back):

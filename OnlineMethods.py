@@ -31,6 +31,22 @@ class MovingAverage(object):
     else:
       self.elements.append(x)
 
+class Variance(object):
+
+      def __init__(self, window_size, initial=[]):
+        self.window_size = window_size
+        self.elements = initial if len(initial) <= window_size else initial[-window_size:]
+        self.variance = 0 if len(initial) < window_size else np.var(initial[-window_size:])
+
+      def add(self, x):
+        if len(self.elements) >= self.window_size:
+          del self.elements[0]
+          self.elements.append(x)
+          self.variance = np.var(self.elements)
+        else:
+          self.elements.append(x)
+          self.variance = np.var(self.elements)
+
 #Moving average without remembering elements -> so just an estimate
 class ExponentialMovingAverage(object):
 
@@ -44,6 +60,7 @@ class ExponentialMovingAverage(object):
       self.n += 1
       self.mean += (x - self.mean) / self.n
     else:
+      # mn+1 = m_n + a(x_n-m_n) = a*x_n + (1-a)*m_n = a*x_n + (1-a)*[a*x_n-1 + (1-a)*m_n-1] = a*x_n + (1-a)*a*x_n-1 + (1-a)^2*m_n-1....
       self.mean += (x - self.mean) / self.window_size
 
 #compute variance of inital list and update with new elements

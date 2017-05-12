@@ -1,8 +1,11 @@
 import pandas as pd
 import dataSource as ds
 import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.style.use('ggplot')
 
 from Detectors.RNNDetector import RNNDetector
+
 
 dsource = ds.dataSource('')
 
@@ -22,7 +25,9 @@ def nab_tst():
   # d = dsource.get_data('data/artificialWithAnomaly/art_increase_spike_density.csv')
   # d = dsource.get_data('data/realTweets/Twitter_volume_GOOG.csv')
 
-  rd = RNNDetector(d[:2000],300)
+
+  print (type(d))
+  rd = RNNDetector(d[:1651],1)
   run(d['value'], rd)
 
 def run(data, detector):
